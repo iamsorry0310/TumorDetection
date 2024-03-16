@@ -1,0 +1,6 @@
+flask
+pandas
+keras
+tensorflow
+scikit-learn
+openpyxl
