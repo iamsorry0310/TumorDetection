@@ -4,7 +4,7 @@ from PIL import Image
 from a import prediction
 import socket
 import pandas as pd
-
+import database as db
 def style_df(df):
     df = df.reset_index(drop=True)
     return df.style \
@@ -23,8 +23,6 @@ def style_df(df):
                            {'selector': 'tbody tr:hover',
                             'props': [('background-color', 'skyblue')
                                       ]}])
-
-
 
 app = Flask(__name__)
 
@@ -49,6 +47,7 @@ def patient_data():
     result = prediction(img)
     message = [[f'Name : {name}'],[f'Gender : {gender}'],[f'Age : {age}'],[f'File Name : {file.filename}'],[f'Result :{result}']]
     data = [name,age,gender,contact,file.filename,result]
+    db.add_patient_data(name=name,age=age,gender=gender,contact=contact,filename=file.filename,result=result)
     dataset = Dataset(name=name,age=age,gender=gender,file_name=file.filename, contact=contact, result=result)
     if file:
         dataset.add(name=name, age=age,gender=gender,file_name=file.filename, contact=contact, result=result).save()
@@ -76,6 +75,8 @@ def doctor_data():
         pred.append(result)
     Doctor(files=doctor_files,reports=pred, rate=rates)
     df = pd.DataFrame({"files":doctor_files,"Result":pred})
+    for i in range(len(doctor_files)):
+        db.add_doctor_data(doctor_files[i],pred[i])
     df = df.sort_values('Result',ascending=False)
     df = style_df(df=df)
     files = df.to_html(classes="table table-stripped",sparse_index=False)
