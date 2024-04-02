@@ -18,4 +18,3 @@ def prediction(file):
     result = y_pred[0][0]*100
 
     return result
-

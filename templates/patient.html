@@ -1,424 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TumorScope - For Patient</title>
+    <meta name="theme-color" content="rgb(206, 255, 255)">
     <link rel="shortcut icon" href="{{ url_for('logo', svg_path='logo.svg') }}" type="image/x-icon">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap');
-
-        * {
-            margin: 0;          
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(90deg, gray, rgb(218, 218, 218));
-        }
-
-        .hidden {
-            display: none;
-        }
-
-        .header {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: row;
-        }
-
-        .header h1 {
-            font-size: 4.5rem;
-            font-family: "Alfa Slab One", serif;
-            font-weight: 400;
-        }
-
-        .container2 h2 {
-            font-family: "Alfa Slab One", serif;
-            font-size: 2.5rem;
-            font-weight: 400;
-        }
-
-        .container2 {
-            margin: 20px auto;
-            padding: 10px;
-            width: 50%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            background: linear-gradient(300deg, gray, rgb(218, 218, 218));
-            border: 5px solid black;
-            border-radius: 40px;
-            color: #000;
-        }
-
-        form {
-            display: flex;
-            width: 80%;
-            flex-direction: column;
-            justify-content: left;
-        }
-
-        form input {
-            width: 89.5%;
-            padding: 5px;
-            padding-left: 20px;
-            margin: 5px 0;
-            background-color: rgba(0, 0, 0, 0.5);
-            border: 2px solid white;
-            border-radius: 50px;
-            color: white;
-            font-size: 1rem;
-        }
-
-        #age {
-            margin-left: 2%;
-        }
-
-        #phn {
-            width: 86%;
-        }
-
-        #gender {
-            background: #00000080;
-            color: #fff;
-            border-radius: 20px;
-        }
-
-        .main-form label {
-            color: #000;
-            font-weight: bold;
-            font-size: 1rem;
-        }
-
-        .file-card {
-            margin: 6px 0;
-        }
-
-        .file-card h3 {
-            margin-top: 15px;
-            color: white;
-            font-size: 1.3rem;
-            font-weight: bold;
-        }
-
-        .file-card p {
-            color: white;
-            font-size: .7rem;
-        }
-
-        #chfile {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 30%;
-            padding: 10px;
-            margin: 10px;
-            border-radius: 30px;
-            color: black;
-            text-align: center;
-            font-weight: bold;
-            background: rgba(255, 255, 255, 0.5);
-            border: 2px solid black;
-            margin-bottom: 10px;
-            font-size: .8rem;
-            cursor: pointer;
-            transition: all 0.2s ease-in-out;
-        }
-
-        #chfile:hover {
-            background: rgba(255, 255, 255);
-        }
-
-        #chfile img {
-            filter: invert(1);
-            margin-right: 5px;
-        }
-
-        .file-card {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            background: rgba(0, 0, 0, 0.5);
-            align-items: center;
-            border: 2px solid white;
-            border-radius: 30px;
-            height: 140px;
-        }
-
-        #sub-btn {
-            cursor: pointer;
-            color: black;
-            background: rgba(255, 255, 255, 0.5);
-            border: 2px solid black;
-            width: 140px;
-            font-weight: bold;
-            border-radius: 20px;
-        }
-
-        #sub-btn:hover {
-            background: rgba(255, 255, 255);
-        }
-
-        .sub {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-        }
-
-        .container3{
-            border: 2px solid black;
-            border-radius: 20px;
-            padding: 10px;
-            margin-top: 10px;
-            width: 60%;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .container3 h3{
-            text-align: center;
-            font-size: 1.7rem;
-            font-family: "Alfa Slab One", serif;
-        }
-
-        .container3 .part .attribute{
-            font-size: 1.3rem;
-            font-weight: bold;
-        }
-
-        .container3 .part .values{
-            font-size: 1.3rem;
-        }
-
-        .container3 .part .values{
-            font-size: 1.3rem;
-        }
-
-        .container3 .tryBtn{
-            margin: 0 auto;
-            font-size: 1.3rem;
-            border-radius: 50px;
-            padding: 10px;
-            background: rgba(255, 255, 255, 0.5);
-            transition: all ease-in-out 0.2s;
-        }
-
-        .container3 .tryBtn:hover{
-            background: rgba(255, 255, 255);
-        }
-
-        .container3 .tryBtn a{
-            text-decoration: none;
-            color: #000;
-            font-weight: bold;
-        }
-
-        @media screen and (max-width: 600px) {
-            .container2 {
-                width: 90%;
-            }
-
-            .header h1 {
-                font-size: 2rem;
-            }
-
-            .container2 h2 {
-                font-size: 1.5rem;
-            }
-
-            form {
-                width: 95%;
-            }
-
-            form input {
-                width: 82%;
-                padding: 5px;
-                padding-left: 10px;
-                margin: 5px 0;
-                background-color: rgba(0, 0, 0, 0.5);
-                border: 2px solid white;
-                border-radius: 50px;
-                color: white;
-                font-size: 1rem;
-            }
-
-            #age {
-                margin-left: 3%;
-            }
-
-            #phn {
-                width: 76%;
-            }
-
-            .file-card {
-                padding: 0px;
-                margin: 5px 0;
-            }
-
-            .file-card h3 {
-                margin-top: 15px;
-                color: white;
-                font-size: 1.3rem;
-                font-weight: bold;
-            }
-
-            .file-card p {
-                color: white;
-                font-size: .7rem;
-            }
-
-            #chfile {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                width: 40%;
-                padding: 10px;
-                margin: 10px;
-                border-radius: 30px;
-                color: black;
-                text-align: center;
-                font-weight: bold;
-                background: rgba(255, 255, 255, 0.5);
-                border: 2px solid black;
-                margin-bottom: 10px;
-                font-size: .8rem;
-            }
-
-            #chfile img {
-                filter: invert(1);
-                margin-right: 5px;
-            }
-
-            .file-card {
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                background: rgba(0, 0, 0, 0.5);
-                align-items: center;
-                border: 2px solid white;
-                border-radius: 30px;
-                height: 20%;
-            }
-
-            #sub-btn {
-                cursor: pointer;
-                color: black;
-                background: rgba(255, 255, 255, 0.5);
-                border: 2px solid black;
-                width: 30%;
-                font-weight: bold;
-            }
-
-            #sub-btn:hover {
-                background: rgba(255, 255, 255);
-            }
-
-            .sub {
-                width: 100%;
-                display: flex;
-                justify-content: center;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="{{ url_for('logo', svg_path='style.css') }}">
 </head>
-
 <body>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="/"><img src="{{ url_for('logo', svg_path='logo.svg') }}" alt="logo"
-                    height="40" style="filter: invert(1);">TumourScope</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/patient">For Patient</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/doctor">For Doctor</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
+    <nav>
+        <ul id="navbar">
+            <li><a href="/">Home</a></li>
+            <li><a href="/patient" class="nav-active">For Patient</a></li>
+            <li><a href="/doctor">For Doctor</a></li>
+        </ul>
     </nav>
 
-    <div class="container2">
-        <div class="header">
-            <img src="{{ url_for('logo', svg_path='logo.svg') }}" alt="logo" height="70">
-            <h1>TumourScope</h1>
-        </div>
-        <h2>Brain Tumor Navigator</h2>
+    <main>
+        <section id="info">
+            <div class="container">
+                <div class="header1">
+                    <img id="logo-img" src="{{ url_for('logo', svg_path='logo.svg') }}" alt="logo" height="50">
+                    <h1 class="headings">TumorScope</h1>
+                </div>
+                <div class="header2">
+                    <h2 class="headings">Brain Tumor Navigator</h2>
+                </div>
+<hr>
+                <div class="main">
+                    <h3 class="headings">For Patient</h3>
+                    
 
-        <form action="/upload_patient" class="main-form" method="post" enctype="multipart/form-data">
-            <div class="form-1">
-                <label for="name">Name:</label>
-                <input id="name" type="text" name="name" required>
+                    <form action="/upload_patient" class="main-form" method="post" enctype="multipart/form-data">
+                        <div class="form-1">
+                            <label for="name">Name:</label>
+                            <input id="name" type="text" name="name" required>
+                        </div>
+                        <div class="form-1">
+                            <label for="age">Age:</label>
+                            <input id="age" type="text" name="age" pattern="[0-9]+" required>
+                        </div>
+                        <div class="form-1">
+                            <label for="phn">Phone No.:</label>
+                            <input id="phn" type="text" name="phn" pattern="[0-9]{10}" required>
+                        </div>
+                        <div class="form-1">
+                            <label for="gender">Gender:</label>
+                            <select id="gender" name="gender">
+                                <option value="NA">Select</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                            </select>
+                        </div>
+                        <div class="file-card form-1">
+                            <h4>Upload Your MRI Scan</h4>
+                            <p>.jpg, .png, .jpeg and .jfif</p>
+                            <input type="file" id="files" name="file" class="hidden" required accept=".jpg, .png, .jpeg and .jfif">
+                            <label for="files" id="chfile"><img id="ch-img" src="{{ url_for('logo', svg_path='chfile.svg') }}"
+                                    alt="file" height="20">Choose file</label>
+                        </div>
+                        <div class="sub form-1">
+                            <button id="sub-btn" type="submit" value="upload">Submit</button>
+                        </div>
+                    </form>
+            
+                    <div class="container3">
+                        <h3>Your Last Report</h3>
+                        <div class="part1">
+                            <div class="part" id="name1"> 
+                                <span class="attribute">Name:</span>
+                                <span class="values"> {{ data[0] }} </span>
+                            </div>
+                            <div class="part" id="age1">
+                                <span class="attribute">Age:  </span>
+                                <span class="values">{{ data[1] }}</span>
+                            </div>
+                            <div class="part" id="gen1">
+                                <span class="attribute">Gender :  </span>
+                                <span class="values">{{ data[2] }}</span>
+                            </div>
+                            <div class="part" id="phn1">
+                                <span class="attribute">Phone No :  </span>
+                                <span class="values">{{ data[3] }}</span>
+                            </div>
+                            <div class="part" id="result1">
+                                <span class="attribute">Result:  </span>
+                                <span class="values">{{ data[5] }}</span>
+                            </div>
+                        </div>
+                        <button class="tryBtn"><a href="/patient">Try Again</a></button>
+                    </div>
+                </div>
             </div>
-            <div class="form-1">
-                <label for="age">Age:</label>
-                <input id="age" type="text" name="age" pattern="[0-9]+" required>
-            </div>
-            <div class="form-1">
-                <label for="phn">Phn No.:</label>
-                <input id="phn" type="text" name="phn" pattern="[0-9]{10}" required>
-            </div>
-            <div class="form-1">
-                <label for="gender">Gender:</label>
-                <select id="gender" name="gender">
-                    <option value="NA">Select</option>
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                </select>
-            </div>
-            <div class="file-card form-1">
-                <h3>Upload Your MRI Scan</h3>
-                <p>.jpg, .png, .jpeg and .jfif</p>
-                <input type="file" id="files" name="file" class="hidden" required accept=".jpg, .png, .jpeg and .jfif">
-                <label for="files" id="chfile"><img id="ch-img" src="{{ url_for('logo', svg_path='chfile.svg') }}"
-                        alt="file" height="20">Choose file</label>
-            </div>
-            <div class="sub form-1">
-                <button id="sub-btn" type="submit" value="upload">Submit</button>
-            </div>
-        </form>
+        </section>
+    </main>
 
-        <div class="container3">
-            <h3>Last Report</h3>
-            <div class="part1">
-                <div class="part" id="name1"> 
-                    <span class="attribute">Name:</span>
-                    <span class="values"> {{ data[0] }} </span>
-                </div>
-                <div class="part" id="age1">
-                    <span class="attribute">Age:</span>
-                    <span class="values">{{ data[1] }}</span>
-                </div>
-                <div class="part" id="phn1">
-                    <span class="attribute">Phone No.:</span>
-                    <span class="values">{{ data[2] }}</span>
-                </div>
-                <div class="part" id="result1">
-                    <span class="attribute">Result:</span>
-                    <span class="values">{{ data[4] }}</span>
-                </div>
-            </div>
-            <button class="tryBtn"><a href="/patient">Try Again</a></button>
-        </div>
-
-    </div>
 
     <script>
         // Get the file input element
@@ -435,13 +112,5 @@
                 fileLabel.innerHTML = "Choose a file";
         });
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
-        integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
-        crossorigin="anonymous"></script>
-
 </body>
-
 </html>
